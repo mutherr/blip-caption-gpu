@@ -16,11 +16,11 @@ from transformers import pipeline
 @click.option("--large", is_flag=True, help="Use the large model")
 @click.option("json_", "--json", is_flag=True, help="Output as JSON")
 def cli(paths, large, gpu, json_):
+    device = -1
     if gpu:
         if torch.cuda.is_available():
             device = 0
         else:
-            device = -1
             click.echo("No GPU available despite specifying --gpu. Defaulting to CPU")
             
     captioner = pipeline(
